@@ -43,11 +43,25 @@ class CarrosController extends Controller
             if($ano = $request['fabricacao']){
                 $query->whereYear('fabricacao', $ano);
             }
+            /**
+            *=============================================
+            * FILTRO ANO
+            */
             if($ano_min = $request['ano_min']){
                 $query->whereYear('fabricacao','>=', $ano_min);
             }
             if($ano_max = $request['ano_max']){
                 $query->whereYear('fabricacao','<=', $ano_max);
+            }
+            /**
+            *=============================================
+            * FILTRO PREÇO
+            */
+            if($preco_min = $request['preco_min']){
+                $query->where('preco','>=', $preco_min);
+            }
+            if($preco_max = $request['preco_max']){
+                $query->where('preco','<=', $preco_max);
             }
 
         })->get();
