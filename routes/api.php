@@ -22,9 +22,16 @@ Route::namespace('API')->group(function(){
 	Route::get('carros/buscar','CarrosController@query');
 
 	Route::resource('carros','CarrosController');
-	Route::resource('imagens','ImagensController');
-	Route::resource('marcas','MarcasController');
-
 	Route::post('carros/{id_carro}/inserir_marca/{id_marca}','CarrosController@insert_brand');
+
+
+
+	Route::resource('imagens','ImagensController');
+
+
+	Route::resource('marcas','MarcasController');
+	Route::any('marcas/delete_all','CarrosController@destroyAll');
+
 	
+
 });

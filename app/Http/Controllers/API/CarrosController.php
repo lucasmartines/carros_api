@@ -29,20 +29,54 @@ class CarrosController extends Controller
     */
     public function query(Request $request){
     
+        $encontrados = Carro::where(function($query)use($request){
 
+            
+            if( $request['marca'] ){
+                $query->whereHas('marca',function (Builder $query)use($request) {
+                    $query->where('nome', 'like', "%". $request['marca'] . "%");
+                });
+            }
+            if( $nome = $request['nome']){
+               $query->where('nome','like',"%".$nome."%")->get(); 
+            }
+            if($ano = $request['fabricacao']){
+                $query->whereYear('fabricacao', $ano);
+            }
+            if($ano_min = $request['ano_min']){
+                $query->whereYear('fabricacao','>=', $ano_min);
+            }
+            if($ano_max = $request['ano_max']){
+                $query->whereYear('fabricacao','<=', $ano_max);
+            }
+
+        })->get();
+
+        return ['data'=>$encontrados];
+
+/* if($request['fabricacao']){
+            
+            $encontrados->whereYear('fabricacao','=',$request['fabricacao']);  
+        }
         if($request['marca']){
-            $encontrados = Carro::WhereHas('marca',function (Builder $query)use($request) {
+            $encontrados->whereHas('marca',function (Builder $query)use($request) {
                 $query->where('nome', 'like', "%". $request['marca'] . "%");
-            })->get();
+            });
+
         }
-        else if($request['q']){
+
+        $encontrados->get();
+
+        if($request['q'])
+        {
            $encontrados = Carro::where('nome','like',"%{$request['q']}%")->get(); 
-           //dd($request['q']);
         }
+        
         else {
             $encontrados = Carro::all();
         }
-        return ['data'=>$encontrados];
+        return ['data'=>$encontrados];*/
+       
     }
     /**
      * Store a newly created resource in storage.

@@ -71,4 +71,14 @@ class MarcasController extends Controller
         return ['msg'=>'marca deletado com sucesso'];        
 
     }
+    public function destroyAll(){
+        Marca::truncate();
+        return ['msg'=>'todas as marcas deletadas com sucesso'];        
+
+    }
+    public function rules(){
+        return [
+            'nome' => 'required'
+        ];
+    }
 }
