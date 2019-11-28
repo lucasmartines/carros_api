@@ -22,6 +22,8 @@ Route::namespace('API')->group(function(){
 	Route::get('carros/buscar','CarrosController@query');
 
 	Route::resource('carros','CarrosController');
+
+	/*inserir marca */
 	Route::post('carros/{id_carro}/inserir_marca/{id_marca}','CarrosController@insert_brand');
 
 

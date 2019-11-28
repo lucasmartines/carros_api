@@ -108,11 +108,17 @@ class ImagensController extends Controller
     public function salvarImagem(Request $request)
     {
 
+       // $path = Storage::putFile('public/imagens_carros', $request->file('imagem'));
+        
+        $extension = $request->file('imagem')->getClientOriginalExtension();
+
+        $nameFile = date("H.i.s").".".$extension;
+
         $arquivo_imagem_url = $request
                 ->file('imagem')
-                ->store('public/imagens_carros');
+                ->storeAs('public/imagens_carros', $nameFile);
 
-        return $arquivo_imagem_url;
+        return "storage/imagens_carros/".$nameFile;
 
     }   
 
